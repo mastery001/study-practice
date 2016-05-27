@@ -1,4 +1,7 @@
-package tree;
+package tree.search;
+
+import tree.AbstractBinaryTree;
+import tree.TreeNode;
 
 public class BinarySearchTree<T extends Comparable<T>> extends AbstractBinaryTree<T> {
 
