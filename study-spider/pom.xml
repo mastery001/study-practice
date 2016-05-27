@@ -1,0 +1,38 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>cn.mastery</groupId>
+    <artifactId>study</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>study-spider</artifactId>
+  
+  <build>
+		<finalName>study-spider</finalName>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>cn.mastery</groupId>
+			<artifactId>study-util</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.http</groupId>
+			<artifactId>reactor-http</artifactId>
+			<version>0.0.10</version>
+		</dependency>
+		<dependency>
+   			<groupId>org.htmlparser</groupId>
+   			<artifactId>htmlparser</artifactId>
+    		<version>2.1</version>
+		</dependency>
+		
+
+	</dependencies>
+</project>
