@@ -63,6 +63,14 @@ public class TreeNode<T> {
 		return parent;
 	}
 	
+	public void setParent(TreeNode<T> parent) {
+		this.parent = parent;
+	}
+
+	public boolean isFull() {
+		return this.left != null && this.right != null;
+	}
+	
 	public boolean equalsValue(T value) {
 		if(this.value != null) {
 			return this.value.equals(value);

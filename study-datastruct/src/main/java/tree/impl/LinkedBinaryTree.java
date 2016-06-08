@@ -99,7 +99,7 @@ public class LinkedBinaryTree<T> extends AbstractBinaryTree<T>{
 			throw new NullPointerException("curr is" + curr);
 		}
 		TreeNode<T> deleteNode = curr.getLeft();
-		deleteNode(curr, deleteNode);
+		deleteNode(deleteNode);
 		return deleteNode;
 	}
 
@@ -115,7 +115,7 @@ public class LinkedBinaryTree<T> extends AbstractBinaryTree<T>{
 			throw new NullPointerException("curr is" + curr);
 		}
 		TreeNode<T> deleteNode = curr.getRight();
-		deleteNode(curr, deleteNode);
+		deleteNode(deleteNode);
 		return deleteNode;
 	}
 

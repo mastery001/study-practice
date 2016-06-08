@@ -41,9 +41,31 @@ public class BinarySearchTree<T extends Comparable<T>> extends AbstractBinaryTre
 
 	@Override
 	protected boolean insert(TreeNode<T> curr, TreeNode<T> insertNode) {
-		return insert((SearchNode<T>)curr, (SearchNode<T>)insertNode, null, false);
+		int cmp = 0;
+		TreeNode<T> parent = null;
+		do{
+			parent = curr;
+			cmp = insertNode.getValue().compareTo(curr.getValue());
+			if(cmp<0) {
+				curr = curr.getLeft();
+			}else if(cmp > 0) {
+				curr = curr.getRight();
+			}else {
+				SearchNode<T> s = (SearchNode<T>) curr;
+				s.freq ++;
+				return true;
+			}
+		}while(curr != null);
+		if(cmp < 0) {
+			parent.setLeft(insertNode);
+		}else {
+			parent.setRight(insertNode);
+		}
+		return true;
 	}
 
+	@SuppressWarnings("unused")
+	@Deprecated
 	private boolean insert(SearchNode<T> curr, SearchNode<T> insertNode, SearchNode<T> parent, boolean currIsLeft) {
 		if (curr == null) {
 			curr = insertNode;
@@ -90,8 +112,71 @@ public class BinarySearchTree<T extends Comparable<T>> extends AbstractBinaryTre
 		return node;
 	}
 
-	@Override
-	protected void deleteNode(TreeNode<T> deleteNodeParent, TreeNode<T> deleteNode) {
+	/** 
+     * 返回以中序遍历方式遍历树时，t的直接后继 
+     */  
+    protected TreeNode<T> successor(TreeNode<T> t) {  
+        if (t == null)  
+            return null;  
+        else if (t.getRight() != null) { //往右，然后向左直到尽头  
+            TreeNode<T> p = t.getRight();  
+            while (p.getLeft() != null)  
+                p = p.getLeft();  
+            return p;  
+        } else {        //right为空，如果t是p的左子树，则p为t的直接后继  
+            TreeNode<T> p = t.parent();  
+            TreeNode<T> ch = t;  
+            while (p != null && ch == p.getRight()) {    //如果t是p的右子树，则继续向上搜索其直接后继  
+                ch = p;  
+                p = p.parent();  
+            }  
+            return p;  
+        }  
+    }  
+    
+    @Override
+    protected void deleteNode(TreeNode<T> deleteNode) {
+    	//如果p左右子树都不为空，找到其直接后继，替换p，之后p指向s，删除p其实是删除s  
+        //所有的删除左右子树不为空的节点都可以调整为删除左右子树有其一不为空，或都为空的情况。  
+        if (deleteNode.isFull()) {  
+        	TreeNode<T> s = successor(deleteNode);  
+        	deleteNode.setValue(s.getValue());
+        	deleteNode = s;  
+        }  
+        TreeNode<T> replacement = (deleteNode.getLeft() != null ? deleteNode.getLeft() : deleteNode.getRight()); 
+
+        if (replacement != null) {      //如果其左右子树有其一不为空  
+            if (deleteNode.parent() == null)   //如果p为root节点  
+                root = replacement;  
+            else if (deleteNode == deleteNode.parent().getLeft())    //如果p是左孩子  
+            	deleteNode.parent().setLeft(replacement);  
+            else                            //如果p是右孩子  
+            	deleteNode.parent().setRight(replacement);  
+  
+            //这里更改了replacement的父节点，所以可以直接从它开始向上回溯  
+            fixAfterDeletion(replacement);    
+  
+        } else if (deleteNode.parent() == null) { // 如果全树只有一个节点  
+            root = null;  
+        } else {  //左右子树都为空  
+            fixAfterDeletion(deleteNode);    //这里从p开始回溯  
+            if (deleteNode.parent() != null) {  
+                if (deleteNode == deleteNode.parent().getLeft())  
+                	deleteNode.parent().setLeft(null);  
+                else if (deleteNode == deleteNode.parent().getRight())  
+                	deleteNode.parent().setRight(null);  
+            }  
+        }     
+    }
+	
+	
+	protected void fixAfterDeletion(TreeNode<T> replacement) {
+		
+	}
+
+	@Deprecated
+	protected void deleteNode1(TreeNode<T> deleteNode) {
+		TreeNode<T> deleteNodeParent = deleteNode.parent();
 		if (deleteNodeParent == null) {
 			// 左右子树都为空
 			if (deleteNode.getLeft() == null && deleteNode.getRight() == null) {

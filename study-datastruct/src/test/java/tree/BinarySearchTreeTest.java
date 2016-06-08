@@ -22,7 +22,7 @@ public class BinarySearchTreeTest {
 		System.out.println(tree.deep());
 		System.out.println(tree.size());
 		Util.printTree(tree);	
-		tree.delete(6);
+		tree.delete(2);
 		Util.printTree(tree);	
 	}
 

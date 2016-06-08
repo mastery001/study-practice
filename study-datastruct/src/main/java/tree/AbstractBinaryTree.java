@@ -145,7 +145,7 @@ public abstract class AbstractBinaryTree<T> implements BinaryTree<T> {
 		if (value != null) {
 			TreeNode<T> node = find(value);
 			if (node != null) {
-				deleteNode(node.parent(), node);
+				deleteNode(node);
 			}
 		}
 		return this;
@@ -162,10 +162,11 @@ public abstract class AbstractBinaryTree<T> implements BinaryTree<T> {
 	 * @param deleteNodeParent
 	 * @param deleteNode
 	 */
-	protected void deleteNode(TreeNode<T> deleteNodeParent, TreeNode<T> deleteNode) {
+	protected void deleteNode(TreeNode<T> deleteNode) {
 		if (deleteNode == null) {
 			return;
 		}
+		TreeNode<T> deleteNodeParent = deleteNode.parent();
 		// 说明此时是删除根节点
 		if (deleteNodeParent == null) {
 			if (deleteNode.getLeft() == null && deleteNode.getRight() == null) {
