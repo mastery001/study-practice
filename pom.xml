@@ -16,6 +16,7 @@
 		<module>study-datastruct</module>
 		<module>study-util</module>
 		<module>study-spider</module>
+		<module>study-compiler-theory</module>
 	</modules>
 
 	<properties>
