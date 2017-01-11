@@ -17,6 +17,9 @@
 		<module>study-util</module>
 		<module>study-spider</module>
 		<module>study-compiler-theory</module>
+        <module>studu-byte-buddy</module>
+        <module>study-byte-buddy</module>
+        <module>study-fiber</module>
 	</modules>
 
 	<properties>
