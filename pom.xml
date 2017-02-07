@@ -292,9 +292,9 @@
 	
 	<repositories>  
 		<repository>
-			<id>letv.public</id>
-			<name>Letv.com Repository</name>
-			<url>http://maven.letv.cn/nexus/content/groups/public/</url>
+			<id>central</id>
+			<name>Central Repository</name>
+			<url>http://central.maven.org/maven2/</url>
 		</repository>		
 		<repository>
 			<id>boundless</id>
