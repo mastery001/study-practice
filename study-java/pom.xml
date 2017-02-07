@@ -9,7 +9,7 @@
 	<artifactId>study-java</artifactId>
 
 	<dependencies>
-	<dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
@@ -25,5 +25,13 @@
 			<artifactId>activemq-core</artifactId>
 			<version>5.7.0</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.sun.jdmk/jmxtools -->
+		<dependency>
+			<groupId>com.sun.jdmk</groupId>
+			<artifactId>jmxtools</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+		
 	</dependencies>
 </project>

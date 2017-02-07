@@ -16,6 +16,34 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>1.7.2</version>
+		</dependency>
+		<dependency>
+			<groupId>log.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log.slf4j</groupId>
+			<artifactId>log4j-over-slf4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log.logback</groupId>
+			<artifactId>core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log.logback</groupId>
+			<artifactId>classic</artifactId>
+		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/co.paralleluniverse/quasar-core -->
 		<dependency>
 			<groupId>co.paralleluniverse</groupId>
@@ -37,5 +65,24 @@
 			<version>3.0.2</version>
 		</dependency>
 
+		<!-- pushy -->
+		<dependency>
+			<groupId>com.relayrides</groupId>
+			<artifactId>pushy</artifactId>
+			<version>0.8.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-tcnative-boringssl-static</artifactId>
+			<version>1.1.33.Fork24</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.eclipse.jetty.alpn/alpn-api -->
+		<dependency>
+			<groupId>org.eclipse.jetty.alpn</groupId>
+			<artifactId>alpn-api</artifactId>
+			<version>1.1.2.v20150522</version>
+		</dependency>
 	</dependencies>
 </project>
