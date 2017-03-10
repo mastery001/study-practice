@@ -14,7 +14,9 @@ import java.util.Set;
 
 public class SocketChannelAcceptor {
 
-	private static Selector selector;
+	private Selector selector;
+	
+	private final Object lock = new Object();
 
 	private SocketIoProcessor processor;
 
@@ -40,12 +42,18 @@ public class SocketChannelAcceptor {
 		new Thread(new AcceptWorker()).start();
 		selector.wakeup();
 	}
+	
+	private Selector getSelector() {
+		synchronized (lock) {
+			return this.selector;
+		}
+	}
 
 	private class AcceptWorker implements Runnable {
 
 		@Override
 		public void run() {
-			Selector selector = SocketChannelAcceptor.selector;
+			Selector selector = getSelector();
 			for (;;) {
 				try {
 					int keySize = selector.select();

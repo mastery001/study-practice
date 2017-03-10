@@ -12,7 +12,9 @@ import java.util.Set;
 
 public class SocketIoProcessor {
 
-	private static Selector selector;
+	private Selector selector;
+	
+	private final Object lock = new Object();
 	
 	private final LinkedList<SocketSessionImpl> newSession = new LinkedList<SocketSessionImpl>();
 	
@@ -28,7 +30,12 @@ public class SocketIoProcessor {
 			new Thread(socketWorker).start();
 		}
 		selector.wakeup();
-		
+	}
+	
+	private Selector getSelector() {
+		synchronized (lock) {
+			return this.selector;
+		}
 	}
 	
 	void onWrite(SocketSessionImpl session) {
@@ -130,7 +137,8 @@ public class SocketIoProcessor {
 
 		if (newSession.isEmpty())
 			return;
-
+		
+		Selector selector = getSelector();
 		SocketSessionImpl session = null;
 		for (;;) {
 			synchronized (newSession) {
@@ -160,6 +168,7 @@ public class SocketIoProcessor {
 
 		@Override
 		public void run() {
+			Selector selector = getSelector();
 			for (;;) {
 				try {
 					int keySize = selector.select(1000);
@@ -184,17 +193,18 @@ public class SocketIoProcessor {
 			Iterator<SelectionKey> it = selectedKeys.iterator();
 			while (it.hasNext()) {
 				SelectionKey key = it.next();
+				SocketSessionImpl session = (SocketSessionImpl) key.attachment();
 				if (key.isReadable()) {
-					read(key);
+					read(session);
 				}
 				if (key.isWritable()) {
 					System.out.println("write request");
 				}
 			}
+			selectedKeys.clear();
 		}
 
-		private void read(SelectionKey key) {
-			SocketSessionImpl session = (SocketSessionImpl) key.attachment();
+		private void read(SocketSessionImpl session) {
 			ByteBuffer buffer = ByteBuffer.allocate(1024);
 			try {
 				while (session.getChannel().read(buffer) > 0) {
