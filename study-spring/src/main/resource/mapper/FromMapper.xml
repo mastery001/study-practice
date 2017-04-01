@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="transaction.dao.FromMapper">
+
+    <insert id="addFrom" parameterType="From" >
+        insert into t_from(username,province,city) values(#{username},#{province},#{city})
+    </insert>
+</mapper>

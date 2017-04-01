@@ -5,7 +5,7 @@
 	<groupId>cn.mastery</groupId>
 	<artifactId>study</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
+    <packaging>pom</packaging>
 	<modules>
 		<module>study-dubbo</module>
 		<module>study-mina</module>
@@ -18,13 +18,15 @@
 		<module>study-spider</module>
 		<module>study-compiler-theory</module>
         <module>studu-byte-buddy</module>
-        <module>study-byte-buddy</module>
         <module>study-fiber</module>
+		<module>study-spring</module>
 	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>3.2.8.RELEASE</spring.version>
+		<mysql-connector-java.version>5.1.36</mysql-connector-java.version>
+		<mybatis.version>3.0.6</mybatis.version>
 	</properties>
 
 	<build>
@@ -286,6 +288,47 @@
 				<groupId>com.alibaba</groupId>
 				<artifactId>fastjson</artifactId>
 				<version>1.1.41</version>
+			</dependency>
+
+			<!-- mybatis&mysql相关 -->
+			<dependency>
+				<groupId>com.mchange</groupId>
+				<artifactId>mchange-commons-java</artifactId>
+				<version>0.2.7</version>
+			</dependency>
+			<dependency>
+				<groupId>com.mchange</groupId>
+				<artifactId>c3p0</artifactId>
+				<version>0.9.2.1</version>
+			</dependency>
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql-connector-java.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis</artifactId>
+				<version>${mybatis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-spring</artifactId>
+				<version>1.0.2</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-core</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-context</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-tx</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
