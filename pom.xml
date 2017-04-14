@@ -182,27 +182,6 @@
 				<version>1.7.1</version>
 			</dependency>
 
-
-			<dependency>
-				<groupId>log.slf4j</groupId>
-				<artifactId>jul-to-slf4j</artifactId>
-				<version>1.7.1</version>
-			</dependency>
-			<dependency>
-				<groupId>log.slf4j</groupId>
-				<artifactId>log4j-over-slf4j</artifactId>
-				<version>1.7.2</version>
-			</dependency>
-			<dependency>
-				<groupId>log.logback</groupId>
-				<artifactId>core</artifactId>
-				<version>1.0.7</version>
-			</dependency>
-			<dependency>
-				<groupId>log.logback</groupId>
-				<artifactId>classic</artifactId>
-				<version>1.0.7</version>
-			</dependency>
 			<!-- spring -->
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -338,7 +317,12 @@
 			<id>central</id>
 			<name>Central Repository</name>
 			<url>http://central.maven.org/maven2/</url>
-		</repository>		
+		</repository>
+		<repository>
+			<id>sonatype-releases</id>
+			<name>Sonatype Releases Repository</name>
+			<url>https://oss.sonatype.org/content/repositories/releases/</url>
+		</repository>
 		<repository>
 			<id>boundless</id>
 			<name>Boundless Repository</name>

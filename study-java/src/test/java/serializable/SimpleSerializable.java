@@ -1,16 +1,12 @@
 package serializable;
 
-import static org.junit.Assert.*;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import org.junit.Test;
-
 import serializable.object.Person;
+
+import java.io.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class SimpleSerializable {
 

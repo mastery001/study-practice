@@ -26,21 +26,5 @@
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>log.slf4j</groupId>
-			<artifactId>jul-to-slf4j</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>log.slf4j</groupId>
-			<artifactId>log4j-over-slf4j</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>log.logback</groupId>
-			<artifactId>core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>log.logback</groupId>
-			<artifactId>classic</artifactId>
-		</dependency>
 	</dependencies>
 </project>

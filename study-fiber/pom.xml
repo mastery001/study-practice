@@ -22,28 +22,7 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>log.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-			<version>1.7.2</version>
-		</dependency>
-		<dependency>
-			<groupId>log.slf4j</groupId>
-			<artifactId>jul-to-slf4j</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>log.slf4j</groupId>
-			<artifactId>log4j-over-slf4j</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>log.logback</groupId>
-			<artifactId>core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>log.logback</groupId>
-			<artifactId>classic</artifactId>
-		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/co.paralleluniverse/quasar-core -->
 		<dependency>
 			<groupId>co.paralleluniverse</groupId>
@@ -93,22 +72,25 @@
 			<version>1.16.10</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.16.10</version>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.16.10</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.jmockit</groupId>
 			<artifactId>jmockit</artifactId>
 			<version>1.31</version>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>19.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/asm/asm -->
+		<dependency>
+			<groupId>asm</groupId>
+			<artifactId>asm</artifactId>
+			<version>3.0</version>
 		</dependency>
 
 	</dependencies>

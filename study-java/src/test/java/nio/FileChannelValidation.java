@@ -1,12 +1,12 @@
 package nio;
 
+import org.junit.Test;
+
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.Arrays;
-
-import org.junit.Test;
 
 public class FileChannelValidation {
 	
