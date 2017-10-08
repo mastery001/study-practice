@@ -17,10 +17,11 @@
 		<module>study-util</module>
 		<module>study-spider</module>
 		<module>study-compiler-theory</module>
-        <module>studu-byte-buddy</module>
+        <module>study-byte-buddy</module>
         <module>study-fiber</module>
 		<module>study-spring</module>
-	</modules>
+        <module>study-spark</module>
+    </modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
