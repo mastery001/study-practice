@@ -1,12 +1,12 @@
 package study.nio.reactor.filter;
 
+import study.nio.reactor.FilterAdapter;
+import study.nio.reactor.Session;
+
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
-
-import study.nio.reactor.FilterAdapter;
-import study.nio.reactor.Session;
 
 public class MessageCodecFilter extends FilterAdapter {
 
@@ -43,7 +43,7 @@ public class MessageCodecFilter extends FilterAdapter {
 	@Override
 	public void messageSent(NextFilter nextFilter, Session session, Object message) throws Exception {
 		if (!(message instanceof ByteBuffer)) {
-			nextFilter.messageReceived(session, message);
+			nextFilter.messageSent(session, message);
 			return;
 		}
 		super.messageSent(nextFilter, session, decode(nextFilter, session, message));
