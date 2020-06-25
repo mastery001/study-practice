@@ -73,5 +73,10 @@ public class LimTest {
 
     }
 
+    public static void main(String[] args) {
+        String a = "11";
+        a = a + null;
+        System.out.println(a);
+    }
 
 }
