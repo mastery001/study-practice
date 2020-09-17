@@ -109,4 +109,51 @@ public class SingleLinkedList<T> extends AbstractList<T> {
 		return currentNode.element;
 	}
 
+	public T findKNode(int target) {
+		if(target < 1) {
+			return null;
+		}
+		Node<T> p = head;
+		Node<T> q = p;
+		int i = 0 , j = 0;
+		while(p != null && q != null && q.next != null) {
+			p = p.next;
+			q = q.next.next;
+			i ++;
+			if(i == target) {
+				return p.element;
+			}
+			j += 2;
+		}
+		// 如果是奇数，则需要长度减1
+		if(q == null) {
+			j --;
+		}
+		if(j < target) {
+			return null;
+		}
+		while(i < target && p != null) {
+			p = p.next;
+			i++;
+		}
+		return p.element;
+	}
+
+	public static void main(String[] args) throws StructureException {
+		SingleLinkedList<Integer> linkedList = new SingleLinkedList<Integer>();
+		linkedList.insert(0 , 1);
+		linkedList.insert(1 , 7);
+		linkedList.insert(2 , 5);
+		linkedList.insert(3 , 2);
+		linkedList.insert(4 , 9);
+		linkedList.insert(5 , 4);
+
+		System.out.println(linkedList.findKNode(0));
+//		System.out.println(linkedList.findKNode(1));
+//		System.out.println(linkedList.findKNode(3));
+//		System.out.println(linkedList.findKNode(4));
+//		System.out.println(linkedList.findKNode(6));
+
+	}
+
 }

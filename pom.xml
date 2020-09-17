@@ -21,12 +21,13 @@
         <module>study-fiber</module>
 		<module>study-spring</module>
         <module>study-spark</module>
+        <module>study-netty</module>
     </modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>3.2.8.RELEASE</spring.version>
-		<mysql-connector-java.version>5.1.36</mysql-connector-java.version>
+		<mysql-connector-java.version>8.0.16</mysql-connector-java.version>
 		<mybatis.version>3.0.6</mybatis.version>
 	</properties>
 

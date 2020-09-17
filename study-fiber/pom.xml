@@ -8,6 +8,10 @@
 	</parent>
 	<artifactId>study-fiber</artifactId>
 
+	<properties>
+		<netty.version>4.1.21.Final</netty.version>
+	</properties>
+
 	<dependencies>
 
 		<!-- junit -->
@@ -57,6 +61,13 @@
 			<version>1.1.33.Fork24</version>
 		</dependency>
 
+		<!--<dependency>-->
+			<!--<groupId>io.netty</groupId>-->
+			<!--<artifactId>netty-tcnative-boringssl-static</artifactId>-->
+			<!--<version>1.1.33.Fork24</version>-->
+		<!--</dependency>-->
+
+
 		<!-- https://mvnrepository.com/artifact/org.eclipse.jetty.alpn/alpn-api -->
 		<dependency>
 			<groupId>org.eclipse.jetty.alpn</groupId>
@@ -91,6 +102,42 @@
 			<groupId>asm</groupId>
 			<artifactId>asm</artifactId>
 			<version>3.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-common</artifactId>
+			<version>${netty.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-buffer</artifactId>
+			<version>${netty.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-transport</artifactId>
+			<version>${netty.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-codec</artifactId>
+			<version>${netty.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-handler</artifactId>
+			<version>${netty.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-codec-http</artifactId>
+			<version>${netty.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-codec-http2</artifactId>
+			<version>${netty.version}</version>
 		</dependency>
 
 	</dependencies>
