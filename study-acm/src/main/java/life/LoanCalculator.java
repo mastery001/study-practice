@@ -99,57 +99,215 @@ public class LoanCalculator {
         System.out.println("剩余还款期限:" + strs[i++]);
     }
 
+    public static PayLoan equalPrincipalAndInterest(double principal , double interestRate , int years) {
+        return equalPrincipalAndInterest(principal , interestRate , years , 0);
+    }
+
+    /**
+     * 等额本息
+     * @param principal
+     * @param interestRate
+     * @param years
+     * @return
+     */
+    public static PayLoan equalPrincipalAndInterest(double principal , double interestRate , int years , int payTime) {
+        int month = years * 12;
+        double monthRate = interestRate / 100 / 12;
+        // 每月还款金额,是固定的
+        double monthPay = principal * monthRate * Math.pow(1 + monthRate , month) / (Math.pow(1 + monthRate , month) - 1);
+        // 总还款金额
+        double totalPay = monthPay * month;
+        // 总利息
+        double totalInterest = totalPay - principal;
+
+        // 当前本金
+        double currentPrincipal = principal;
+        List<MonthLoan> monthLoans = new ArrayList<MonthLoan>();
+        PrePayLoad prePayLoad = null;
+        for(int i = 0 ; i < month ; i++) {
+            // 当月利息
+            double interest = currentPrincipal * monthRate;
+
+            if(payTime != 0 && i == payTime) {
+                prePayLoad = new PrePayLoad(payTime , monthPay * payTime , currentPrincipal + interest);
+            }
+
+            double monthPrincipal = monthPay - interest;
+
+            MonthLoan monthLoan = new MonthLoan(i + 1 , monthPrincipal , interest , monthPay);
+            monthLoans.add(monthLoan);
+
+            // 重新计算本金
+            currentPrincipal = currentPrincipal - monthPrincipal;
+
+        }
+        if(prePayLoad != null) {
+            prePayLoad.saveMoney(totalPay);
+        }
+        return new PayLoan(principal , interestRate , month , totalPay , totalInterest , monthLoans , prePayLoad);
+    }
+
+    public static PayLoan equalPrincipal(double principal , double interestRate , int years) {
+        return equalPrincipal(principal , interestRate , years , 0);
+    }
+
     /**
      * 等额本金
      * @param principal     本金
      * @param interestRate  利率
      * @param years         还款年限
+     * @param payTime       提前还款时间
      */
-    public static PayLoan equalPrincipal(double principal , double interestRate , int years) {
+    public static PayLoan equalPrincipal(double principal , double interestRate , int years , int payTime) {
         int month = years * 12;
         double monthRate = interestRate / 100 / 12;
         double fixedPrincipal = principal / month;
-        double sum = 0;
+        // 总利息
+        double totalInterest = 0;
+        // 总计待还
+        double totalPay = 0;
         double currentPrincipal = principal;
         List<MonthLoan> monthLoans = new ArrayList<MonthLoan>();
+        PrePayLoad prePayLoad = null;
         for(int i = 0 ; i < month ; i++) {
+            // 每月还款利息
             double interest = currentPrincipal * monthRate;
+            if(payTime != 0 && i == payTime) {
+                prePayLoad = new PrePayLoad(payTime , totalPay , currentPrincipal + interest);
+            }
+            // 当月应还款 = 本金 + 利息
             double payMoney = fixedPrincipal + interest;
-            sum += payMoney;
-            currentPrincipal = currentPrincipal - fixedPrincipal;
 
             MonthLoan monthLoan = new MonthLoan(i + 1 , fixedPrincipal , interest , payMoney);
             monthLoans.add(monthLoan);
+
+            totalInterest += interest;
+            totalPay += payMoney;
+            // 计算新本金
+            currentPrincipal = currentPrincipal - fixedPrincipal;
         }
-        return new PayLoan(principal , interestRate , month , sum , monthLoans);
+        if(prePayLoad != null) {
+            prePayLoad.saveMoney(totalPay);
+        }
+
+        return new PayLoan(principal , interestRate , month , totalPay , totalInterest , monthLoans , prePayLoad);
     }
+
 
     public static void main(String[] args) {
 //        double sum = equalPrincipal(120000 , 4.86 , 10);
-//        PayLoan payLoan = equalPrincipal(1780000 , 5.35 , 30);
-//        System.out.println(payLoan);
-        show(calculateEqualPrincipalAndInterest(1780000 , 30 * 12 ,  5 * 12 , 5.35));
-        System.out.println("等额本金");
-        show(calculateEqualPrincipal(1780000 , 30 * 12 ,  5 * 12 , 5.35));
+        int payTime = 3 * 12;
+        for(int i = 1 ; i <= 30 * 12 ; i++) {
+            PayLoan payLoan2 = equalPrincipalAndInterest(1780000 , 5.35 , 30 , i);
+//            PayLoan payLoan1 = equalPrincipal(1780000 , 5.35 , 30 , i);
+            System.out.println(payLoan2.prePayLoad);
+        }
+//        PayLoan payLoan1 = equalPrincipal(1780000 , 5.35 , 30 , payTime);
+//        PayLoan payLoan2 = equalPrincipalAndInterest(1780000 , 5.35 , 30 , payTime);
+//        System.out.println("等额本息：" + payLoan2.prePayLoad);
+//        System.out.println("等额本金：" + payLoan1.prePayLoad);
+//        payLoan.prePay(5 * 12);
+//        show(calculateEqualPrincipalAndInterest(1780000 , 30 * 12 ,  5 * 12 , 5.35));
+//        System.out.println("等额本金");
+//        show(calculateEqualPrincipal(1780000 , 30 * 12 ,  5 * 12 , 5.35));
+    }
+
+    /**
+     * 提前还款
+     */
+    private static class PrePayLoad {
+
+        /**
+         * 提前还款期数
+         */
+        private final int time;
+
+        /**
+         * 已经还了多少钱
+         */
+        private final double payed;
+
+        /**
+         * 还需要还多少钱，即一次性付清需要多少钱
+         */
+        private final double remainPay;
+
+        /**
+         * 节省了多少钱
+         */
+        private double saveMoney;
+
+        /**
+         * 提前还款时总共还了多少钱
+         */
+        private final double totalPay;
+
+        public PrePayLoad(int time, double payed, double remainPay) {
+            this.time = time;
+            this.payed = payed;
+            this.remainPay = remainPay;
+            this.totalPay = payed + remainPay;
+        }
+
+        public void saveMoney(double totalFullPay) {
+            this.saveMoney = totalFullPay - totalPay;
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append("提前还款期数：").append(time).append(",")
+                .append("已还款：").append(payed).append(",")
+                .append("一次性付清：").append(remainPay).append(",")
+                .append("总计还款：").append(totalPay).append(",")
+                .append("节省的钱：").append(saveMoney)
+            ;
+            return sb.toString();
+        }
     }
 
     private static class PayLoan {
+        /**
+         * 本金
+         */
         private final double principal;
 
+        /**
+         * 借贷利率
+         */
         private final double interestRate;
 
+        /**
+         * 期数
+         */
         private final int period;
 
+        /**
+         * 总待还
+         */
         private final double total;
+
+        /**
+         * 总利息
+         */
+        private final double totalInterest;
 
         private final List<MonthLoan> monthLoanList;
 
-        public PayLoan(double principal, double interestRate, int period, double total, List<MonthLoan> monthLoanList) {
+        private PrePayLoad prePayLoad;
+
+        public PayLoan(double principal, double interestRate, int period, double total , double totalInterest, List<MonthLoan> monthLoanList) {
+            this(principal , interestRate , period , total , totalInterest , monthLoanList , null);
+        }
+
+        public PayLoan(double principal, double interestRate, int period, double total , double totalInterest, List<MonthLoan> monthLoanList , PrePayLoad prePayLoad) {
             this.principal = principal;
             this.interestRate = interestRate;
             this.period = period;
             this.total = total;
+            this.totalInterest = totalInterest;
             this.monthLoanList = monthLoanList;
+            this.prePayLoad = prePayLoad;
         }
 
         @Override
@@ -167,6 +325,9 @@ public class LoanCalculator {
 
         private final int i;
 
+        /**
+         * 当月本金
+         */
         private final double principal;
 
         private final double interest;
@@ -182,7 +343,7 @@ public class LoanCalculator {
 
         @Override
         public String toString() {
-            return "第" + i + "期：当月本金：" + principal + "，支付利息：" + interest + "，还款额：" + payMoney;
+            return "第" + i + "期：当月应还本金：" + principal + "，应付利息：" + interest + "，还款额：" + payMoney;
         }
     }
 }
