@@ -16,14 +16,14 @@ public class UniquePaths {
 
     /**
      * 第一步：定义数组元素的含义
-     * dp[i][j]:从起点到网格i,j的步数
+     * dp[i][j]:从起点到网格i,j的可行路径
      *
      * 第二步：找出数组元素间的关系式
      * dp[i][j] = dp[i][j - 1] + dp[i - 1][j]
      *
      * 第三步：找出初始条件
      * 一直往右走：dp[i][0] = 1
-     * 一直往下走：dp[0][j] = 1
+     *      * 一直往下走：dp[0][j] = 1
      * @param m
      * @param n
      * @return
